@@ -273,3 +273,14 @@ db.books.find({ "author": "Ira Levin"});
 
 //query to display a book by bookId
 db.books.find({ "bookId": "ISBN 9781543617672"}); 
+
+//query to display a wishlist by customerId
+db.customers.find({ customerId: "1001" }, { wishlist: 1 })
+
+//add book to customers wishlistItems
+db.customers.updateOne({ customerId: "1002" }, { $push: { "wishlist": { bookId: "ISBN 978-250268129",
+genre: "Humor", title: "The Panic Years", author: "Nell Frizzell"},},});
+
+//remove a book from a customer's wishlistItems
+db.customers.updateOne({ customerId: "1003" }, { $pull: {"wishlist": { title: "I am Watching You",
+genre: "Thriller", author: "Teresa Driscoll", bookId: "ISBN 9781543617672",},},});

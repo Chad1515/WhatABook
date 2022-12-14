@@ -18,5 +18,20 @@ db = client['WhatABook']
 for book in db.books.find():
   print(book)
 
-# print genre document with genre equal to Horror
-print(db.books.find_one( { "genre": "horror" } ))    
+# print list of books based on user's selected genre
+genre_Select = input("Please enter a genre from above:  ")
+if genre_Select == 'Horror' or genre_Select == 'Fantasy' or genre_Select == 'Fiction' or genre_Select == 'History' or genre_Select == 'Thriller' or genre_Select == 'Humor':
+    for book in db.books.find({'genre': genre_Select}, {'title': 1, 'genre': 1}):
+        print(book)
+else:
+    print("Please enter valid genre") 
+
+
+# Display list of books by genre
+select = input ('To view wishlist, please enter your customer ID. ')
+
+if select == '1001' or select == '1002' or select == '1003':
+    for wishlist in db.customers.find({'customerId': select}, {'wishlist': 1}):
+        print(wishlist)
+else:
+    print("Please enter valid ID")
